@@ -1,0 +1,23 @@
+{% extends 'base.html'%}
+{% block head %}
+{% endblock %}  <!--Bloque que indica el encabezado-->
+
+{% block body %}
+<h1>Ingresa los datos solicitados</h1>
+<div class=""> 
+  <!--html de estructura de metodo post ,el encoding type es multipart-->
+   <!--la action es upload y se puede poner explisitamente, pero lo vacio funciona igual por defecto-->
+ <form class="" action="" method="post" enctype="multipart/form-data">
+ <input type="file" name="cvsfile" value="">
+ <input type="submit" name="" value="Subir">
+ </form>
+ </div>
+
+ <br>
+ <h1>Contenido del Archivo CSV</h1>
+ <div>{{ data|safe }}</div>
+ <br>
+ <h1>Gráfica de Datos CSV</h1>
+<img src="data:image/png;base64,{{ img_show }}">
+
+{% endblock %}  <!--Bloque que indica el cuerpo-->
