@@ -1,0 +1,33 @@
+/* Archivo: estilo.css */
+
+nav ul{
+    display: flex;
+    list-style: none;
+    justify-content: space-between;
+    width:100%;
+    background-color: lightskyblue;
+}
+
+nav ul li a{
+    text-decoration: none;
+    color: cadetblue;
+    font-family: 'Figtree', sans-serif;
+}
+
+nav{
+    width:60%
+}
+
+body {
+    background-color: rgb(186, 230, 255);
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color:lightblue;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  

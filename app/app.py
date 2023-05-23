@@ -4,7 +4,6 @@ import numpy as np                  # Para crear vectores y matrices n dimension
 import matplotlib.pyplot as plt     # Para la generación de gráficas a partir de los datos
 from apyori import apriori # Para el algoritmo apriori
 import os # os es para crear un folder estatico
-import io
 
 app = Flask(__name__)
 def mostrarGrafica(data):
@@ -18,22 +17,17 @@ def mostrarGrafica(data):
   plt.figure(figsize=(16,20), dpi=300)
   plt.ylabel('Item')
   plt.xlabel('Frecuencia')
-  plt.barh(Lista['Item'], width=Lista['Frecuencia'], color='blue')
-  
-  # Guardar la figura para mostrarla después:
-  img = io.BytesIO()
-  plt.savefig(img, format='png')
-  img.seek(0)
-  return render_template('index.html', img_show = img.getvalue())
-
+  plt.barh(Lista['Item'], width=Lista['Frecuencia'], color='red')
+  grafica_path = 'static/img/grafica.png'
+  plt.savefig(grafica_path)
 
 def apriori(data, minSup, minConf, minLift):
   dataRecived = data.stack().groupby(level=0).apply(list).tolist()
   ReglasC1 = apriori(dataRecived, 
-                   min_support=1,#minSup, 
-                   min_confidence=1,#minConf, 
-                   min_lift=1) #minLift)
-  ResultadosC1 = list(ReglasC1)
+                   min_support=minSup, 
+                   min_confidence=minConf, 
+                   min_lift=minLift)
+  '''ResultadosC1 = list(ReglasC1)
   pd.DataFrame(ResultadosC1)
   for item in ResultadosC1:
     #El primer índice de la lista
@@ -48,30 +42,26 @@ def apriori(data, minSup, minConf, minLift):
     print("Confianza: " + str(item[2][0][2]))
     print("Elevación: " + str(item[2][0][3])) 
     print("=====================================") # Aquí deberíamos asociar el valor correspondiente a la etiqueta
-
-
-
+    '''
 
 # Para guardar el form
 @app.route('/',  methods = ['GET','POST'])
 def index(): #aqui ponemos toda la logica del guardado
-  #si el metodo seleccionado es post
   if request.method=="POST":
     file=request.files['cvsfile']
-    df = pd.read_csv(file)
-    showdf = df.head() # DataFrame para poder mostrarlo en pantalla.
-    #apriori(df,1,1,1) 
+    if file:
+      df = pd.read_csv(file)
+      dfmod = pd.DataFrame(df)
+      df_string=dfmod.head().to_html(index=False) 
 
-    #se genera una carpeta llamada static si no existe antes y ahi guarda los archivos subidos
-    if not os.path.isdir('static'):
-      os.mkdir('static')
-    filepath=os.path.join('static',file.filename)
-    file.save(filepath)
-
-    #si se importa el file, deberia poder obtener el mensaje
-    #del nombre del archivo con la linea comentada siguiente
-    #return 'the file name of the uploaded file is:{}'.format(file.filename)
-  return render_template('index.html', data=showdf.to_html(index=False))
+      #se genera una carpeta llamada static si no existe antes y ahi guarda los archivos subidos
+      if not os.path.isdir('static'):
+        os.mkdir('static/data')
+      filepath=os.path.join('static',file.filename)
+      file.save(filepath)
+      mostrarGrafica(dfmod)
+      return render_template('index.html', dataframe=df_string)#, image_path='grafica.png')
+  return render_template('index.html')
 
 #y esto es para que una vez se corra el programa se vayan actualizando lo scambios solos , solo con guardar
 if __name__=='__main__':

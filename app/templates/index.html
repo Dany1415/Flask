@@ -1,10 +1,18 @@
-{% extends 'base.html'%}
-{% block head %}
-{% endblock %}  <!--Bloque que indica el encabezado-->
 
-{% block body %}
-<h1>Ingresa los datos solicitados</h1>
-<div class=""> 
+<head>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+<head>  <!--Bloque que indica el encabezado-->
+<body>
+  <nav>
+    <ul>
+      <li><a href="apriori.html"> Apriori </a></li>
+      <li><a href="metricas.html"> Métricas de distancia </a></li>
+      <li><a href="cluster.html"> Clustering </a></li>
+    </ul>
+  </nav>
+
+  <h1>Ingresa los datos solicitados</h1>
+  <div class=""> 
   <!--html de estructura de metodo post ,el encoding type es multipart-->
    <!--la action es upload y se puede poner explisitamente, pero lo vacio funciona igual por defecto-->
  <form class="" action="" method="post" enctype="multipart/form-data">
@@ -15,9 +23,9 @@
 
  <br>
  <h1>Contenido del Archivo CSV</h1>
- <div>{{ data|safe }}</div>
+ <div>{{ dataframe|safe }}</div>
  <br>
  <h1>Gráfica de Datos CSV</h1>
-<img src="data:image/png;base64,{{ img_show }}">
-
-{% endblock %}  <!--Bloque que indica el cuerpo-->
+ <img src="url_for('static', filename='img/grafica.png')"/>
+  
+</body>

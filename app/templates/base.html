@@ -1,8 +1,19 @@
-<link rel="stylesheet" type="text/css" href="style.css">
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
     <!--Enlaces externos-->
-    <head>
+    <header>
      {% block head %}{% endblock %}  <!--Bloque que indica el encabezado-->
-   </head>
-   <body>
-     {% block body %}{% endblock %}  <!--Bloque que indica el encabezado-->
-   </body>
+    </header>
+    <nav>
+      {% block nav %}{% endblock %}  <!--Bloque que indica el navigation-->
+     </nav>
+    <body>
+     {% block body %}{% endblock %}  <!--Bloque que indica el cuerpo-->
+    </body>
+   
+</html>
