@@ -7,6 +7,9 @@ import os # os es para crear un folder estatico
 
 app = Flask(__name__)
 def mostrarGrafica(data):
+  print("yaaaaaa")
+  print("pofavot")
+  print("Holi, ya quedó")
   Transacciones = data.values.reshape(-1).tolist() #-1 significa 'dimensión no conocida'
   Lista = pd.DataFrame(Transacciones)
   Lista['Frecuencia'] = 1
