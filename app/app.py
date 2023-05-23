@@ -61,10 +61,14 @@ def index(): #aqui ponemos toda la logica del guardado
   #si el metodo seleccionado es post
   if request.method=="POST":
     file=request.files['cvsfile']
-    df = pd.read_csv(file)
-    showdf = df.head() # DataFrame para poder mostrarlo en pantalla.
-    #apriori(df,1,1,1) 
+    if file.filename == '':
+      showdf = "static\movies.csv"
 
+    if file and file.filename.endswith('.csv'):     
+       df = pd.read_csv(file)
+       showdf = df.head() # DataFrame para poder mostrarlo en pantalla.
+       #apriori(df,1,1,1) 
+    
     #se genera una carpeta llamada static si no existe antes y ahi guarda los archivos subidos
     if not os.path.isdir('static'):
       os.mkdir('static')
