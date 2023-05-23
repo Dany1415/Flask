@@ -8,6 +8,7 @@ import io
 
 app = Flask(__name__)
 def mostrarGrafica(data):
+  print("yaaaaaa")
   Transacciones = data.values.reshape(-1).tolist() #-1 significa 'dimensión no conocida'
   Lista = pd.DataFrame(Transacciones)
   Lista['Frecuencia'] = 1
