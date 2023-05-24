@@ -29,7 +29,7 @@ def apriori(data, minSup, minConf, minLift):
   ReglasC1 = apriori(dataRecived, 
                    min_support=minSup, 
                    min_confidence=minConf, 
-                   min_lift=minLift)
+                   min_lift=minLift) #Base
   '''ResultadosC1 = list(ReglasC1)
   pd.DataFrame(ResultadosC1)
   for item in ResultadosC1:
