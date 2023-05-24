@@ -56,13 +56,6 @@ def index(): #aqui ponemos toda la logica del guardado
       df = pd.read_csv(file)
       dfmod = pd.DataFrame(df)
       df_string=dfmod.head().to_html(index=False) 
-
-      #se genera una carpeta llamada static si no existe antes y ahi guarda los archivos subidos
-      if not os.path.isdir('static'):
-        os.mkdir('static/data')
-      filepath=os.path.join('static',file.filename)
-      file.save(filepath)
-      mostrarGrafica(dfmod)
       return render_template('index.html', dataframe=df_string)#, image_path='grafica.png')
   return render_template('index.html')
 
